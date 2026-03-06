@@ -1,57 +1,54 @@
+````md
 # AI Fitness Planner
 
-A responsive web application that generates a personalized **weekly fitness plan using AI**.
-Users provide basic personal information, fitness goals, and weekly availability, and the app generates a structured workout routine displayed using a clean card-based UI.
+A responsive web application that generates a personalized **weekly fitness plan using AI**.  
+Users provide basic personal information, fitness goals, and weekly availability, and the app generates a structured workout routine displayed using a clean, card-based UI (based on the provided Figma design).
 
-This project was built emphasizing:
+This project emphasizes:
 
-- clean CSS and layout implementation
-- structured AI responses
-- robust error handling
-- responsive UI design
-- maintainable architecture
+- Clean CSS and layout implementation (no UI frameworks)
+- Structured AI responses (strict JSON schema)
+- Robust error handling (API failures / malformed JSON)
+- Responsive UI design (mobile-friendly)
+- Maintainable architecture
 
 ---
 
-# Demo
+## Demo
 
-_(Optional – add deployed link if available)_
+_Add your deployed link if available:_
 
-```
 https://your-deployment-link.vercel.app
-```
 
 ---
 
-# Features
+## Features
 
-### 1. Fitness Plan Generator
+### 1) Fitness Plan Generator
 
 Users enter:
 
-- Age
-- Weight
-- Height
+- Age, Weight, Height
 - Gender
 - Experience level
-- Primary fitness goals
+- Primary fitness goals (multi-select)
 - Weekly workout load
 - Optional notes / limitations
 
-The AI generates a **structured 7-day fitness plan**.
+The AI generates a structured **7-day fitness plan**.
 
 ---
 
-### 2. Structured AI Output
+### 2) Structured AI Output (JSON-only)
 
-The AI is instructed using a **system prompt** to always return JSON in the following format:
+The AI is instructed using a system prompt to always return JSON in the following format:
 
 ```json
 {
   "plan_name": "string",
   "weekly_summary": {
-    "total_days": number,
-    "rest_days": number,
+    "total_days": 7,
+    "rest_days": 0,
     "focus": "string"
   },
   "days": [
@@ -59,14 +56,14 @@ The AI is instructed using a **system prompt** to always return JSON in the foll
       "day": "Monday",
       "type": "Strength | Cardio | HIIT | Yoga | Rest | Active Recovery | Flexibility",
       "title": "string",
-      "duration_min": number,
+      "duration_min": 45,
       "intensity": "Low | Medium | High | Max",
-      "calories_est": number,
+      "calories_est": 250,
       "exercises": [
         {
           "name": "string",
-          "sets": number | null,
-          "reps": "string | null"
+          "sets": 3,
+          "reps": "8-10"
         }
       ],
       "tip": "string"
@@ -76,108 +73,114 @@ The AI is instructed using a **system prompt** to always return JSON in the foll
   "recovery_tip": "string"
 }
 ```
+````
 
-This structure allows the UI to **render dynamic workout cards reliably**.
+This structure allows the UI to render dynamic workout cards reliably.
 
 ---
 
-### 3. Clean Card-Based UI
+### 3) Clean Card-Based UI
 
 The generated plan displays:
 
 - Weekly summary metrics
-- Daily workout cards
+- Daily workout cards (accordion)
 - Exercise lists
 - Tips and recovery guidance
 
 Each workout card includes:
 
-- session duration
-- estimated calorie burn
-- number of movements
-- workout intensity
+- Session duration
+- Estimated calorie burn
+- Number of movements
+- Workout intensity
 
 ---
 
-### 4. Responsive Design
+### 4) Responsive Design (Mobile-Friendly)
 
-The application is fully responsive and optimized for:
+The application is responsive and optimized for:
 
-- desktop
-- tablets
-- mobile devices
+- Desktop
+- Tablets
+- Mobile devices
 
 Key responsive behaviors:
 
-- Experience tier becomes **stacked on mobile**
-- Objective grid adjusts dynamically
+- Experience tier becomes stacked/layered on mobile
+- Objective tiles grid adjusts dynamically
 - Workout stats collapse into fewer columns
-- Exercise rows stack vertically on small screens
+- Exercise rows/pills wrap correctly on small screens
+- No horizontal overflow
 
 ---
 
-### 5. Robust Error Handling
+### 5) Robust Error Handling (No Crash Guarantee)
 
-- App **does not crash** if:
-  - API returns non-200
-  - response is rate limited (429)
-  - response contains extra text / code fences
-  - JSON is malformed
-  - JSON schema is missing fields
-- Includes:
-  - retry with backoff (for 429 / transient failures)
-  - timeout (prevents hanging)
-  - JSON extraction + validation before render
-  - friendly error messages
+The app does not crash if:
+
+- API returns non-200 responses
+- Response is rate limited (429)
+- Response contains extra text / markdown fences
+- JSON is malformed
+- JSON schema is missing or invalid
+
+Includes:
+
+- Retry with backoff (for 429 / transient errors)
+- Timeout (prevents hanging)
+- JSON extraction + validation before render
+- Friendly error messages for users
 
 Example user-friendly error:
 
-```
-⚠ The AI model is currently busy.
-Please wait a few seconds and try again.
-```
-
-# Notes on Robustness Implementation
-
--Retries: Automatically retries up to 3 times on 429
--Timeout: aborts long requests to avoid infinite loading
--Parsing:
-removes markdown fences
-extracts first { ... } block
-JSON.parse with try/catch
--Validation:
-checks required keys and enums
-verifies 7 days (Monday–Sunday)
-ensures numeric fields are numbers
--Safe UI:
-doesn’t render plan if validation fails
-shows friendly error box
+> ⚠ The AI model is currently busy (rate-limited). Please wait a few seconds and try again.
 
 ---
 
-### 6. Defensive JSON Parsing
+## OpenRouter AI Integration
 
-The AI response is parsed and validated before use.
+### API Endpoint
 
-Steps:
+[https://openrouter.ai/api/v1/chat/completions](https://openrouter.ai/api/v1/chat/completions)
 
-1. Extract JSON from model output
-2. Validate schema
-3. Normalize values
-4. Render safely
+### Request Format
 
-This prevents UI crashes caused by malformed AI responses.
+OpenAI-compatible chat completions:
+
+- `system` message: strict JSON schema prompt
+- `user` message: fitness details
+
+### Model
+
+Configurable via `.env`. Examples:
+
+- `openai/gpt-oss-120b:free`
+- `openai/gpt-oss-20b:free` (faster, often less rate-limited)
+
+> Note: Some free models require enabling OpenRouter privacy options:
+>
+> - “Enable free endpoints that may train on inputs”
+> - “Enable free endpoints that may publish prompts”
 
 ---
 
-# Project Architecture
+## Project Architecture
 
-```
+```text
 src/
+  api/
+    openrouter.js       # OpenRouter fetch + retry + timeout
+    parseJson.js         # Extract JSON safely from model output
+    validatePlan.js      # Schema validation (defensive)
+    systemPrompt.js      # Strict prompt enforcing JSON contract
   pages/
     BuildPlanPage/
       BuildPlanPage.jsx
       BuildPlanPage.css
+    PlanPage/
+      PlanPage.jsx
+      PlanPage.css
   components/
     common/
       AppShell/
@@ -212,249 +215,141 @@ src/
 
 ---
 
-# Tech Stack
+## Tech Stack
 
-| Technology     | Purpose                        |
-| -------------- | ------------------------------ |
-| React          | UI framework                   |
-| Vite           | Development + build tool       |
-| Vanilla CSS    | Styling (no UI libraries used) |
-| OpenRouter API | AI model access                |
-| JavaScript     | Plain JS schema validation to  |
-|                | make it lightweight            |
-
-No UI frameworks were used (Tailwind / MUI / Shadcn etc) to emphasize **CSS layout skills**.
+- React
+- Vite
+- Vanilla CSS (no Tailwind / MUI / Shadcn / Ant Design)
+- OpenRouter API
 
 ---
 
-# AI Model Integration
+## Installation & Running
 
-The application uses **OpenRouter** to access free LLM endpoints.
+### 1) Clone the repository
 
-API endpoint:
-
-```
-https://openrouter.ai/api/v1/chat/completions
-```
-
-Format:
-
-- OpenAI-compatible chat completions
-- Messages include:
-  - `system` (strict JSON schema prompt)
-  - `user` (fitness details)
-
-```
----
-
-# AI Prompt Design
-
-The system prompt strictly enforces structured JSON output.
-
-Example responsibilities:
-
-* produce exactly **7 days**
-* include **rest days if weekly load < 7**
-* generate **realistic exercises**
-* ensure fields match schema
-
-This ensures predictable rendering in the UI.
-
----
-
-Model:
-- Configurable via `.env`
-- Suggested free models (examples):
-  - `openai/gpt-oss-120b:free`
-  - `openai/gpt-oss-20b:free` (faster / less rate limited)
-
----
-
-# Installation
-
-### 1. Clone repository
-
-```
-
+```bash
 git clone https://github.com/ashr77/ai-fitness-planner.git
 cd ai-fitness-planner
-
 ```
 
-### 2. Install dependencies
+### 2) Install dependencies
 
-```
-
+```bash
 npm install
-
 ```
 
-### 2, Create .env in project root (same folder as package.json).
+### 3) Create `.env` in project root (same folder as `package.json`)
 
-```
+```env
 VITE_OPENROUTER_KEY=YOUR_OPENROUTER_KEY
 VITE_OPENROUTER_MODEL=openai/gpt-oss-20b:free
 ```
 
-### 4. Start development server
+> Do not commit `.env`. Use `.env.example` if needed.
 
-```
+### 4) Start the development server
 
+```bash
 npm run dev
-
 ```
 
-App will run at:
+App runs at:
 
-```
-
-http://localhost:5173
-
-```
+- [http://localhost:5173](http://localhost:5173)
 
 ---
 
-# Build
+## Build & Preview
 
-To create a production build:
+Create a production build:
 
-```
-
+```bash
 npm run build
-
 ```
 
-Preview build:
+Preview production build:
 
-```
-
+```bash
 npm run preview
-
 ```
 
 ---
 
-# Testing Scenarios
+## Testing Scenarios
 
-The application was tested across multiple scenarios.
-
-### Input Validation
+### Input Coverage
 
 Test cases:
 
-* valid inputs
-* extreme values
-* empty notes
-* multiple objectives
-* different weekly loads
-
----
+- Valid inputs
+- Extreme values
+- Empty notes
+- Multiple objectives selected
+- Weekly loads 3–7
 
 ### API Behavior
 
-| Scenario            | Expected behavior |
-| ------------------- | ----------------- |
-| successful response | renders plan      |
-| malformed JSON      | handled safely    |
-| rate limit          | retry UI          |
-| slow network        | loading spinner   |
-
----
+| Scenario            | Expected Behavior            |
+| ------------------- | ---------------------------- |
+| Successful response | Renders plan                 |
+| Malformed JSON      | Handled safely (shows error) |
+| Rate limit (429)    | Retries + friendly error     |
+| Slow network        | Loading spinner + timeout    |
 
 ### Responsive Testing
 
-Tested using browser dev tools at:
+Tested using DevTools at:
 
+- 320px, 360px, 375px, 390px
+- 768px, 1024px, 1440px
+
+No horizontal overflow check:
+
+```js
+document.documentElement.scrollWidth > window.innerWidth;
 ```
 
-360px
-375px
-390px
-768px
-1024px
-1440px
+Expected: `false`
 
-```
-No horizontal scroll:
+### Real Phone Testing (Optional)
 
-Open console and check:
-document.documentElement.scrollWidth > window.innerWidth
-should be false
+Run:
 
-Tested on a Real Phone
-
----
-
-# Mobile UX Improvements
-
-Special adjustments include:
-
-* stacked segmented controls
-* dynamic objective grid
-* compact stat cards
-* collapsible exercise rows
-
----
-
-# Key Design Decisions
-
-### No UI Frameworks
-
-The assignment specifically encouraged writing **custom CSS**.
-All components were built from scratch to demonstrate layout skills.
-
----
-
-### Defensive AI Integration
-
-AI responses are inherently unpredictable.
-
-The app includes:
-
-* JSON extraction
-* schema validation
-* error fallbacks
-
-to ensure UI stability.
-
----
-
-### Modular Architecture
-
-The codebase separates responsibilities clearly:
-
+```bash
+npm run dev -- --host
 ```
 
-UI
-AI logic
-data validation
-styling
+Open on phone (same Wi-Fi):
 
+```text
+http://<your-pc-ip>:5173
 ```
-
-This improves maintainability and testability.
 
 ---
 
-# Known Limitations
+## Known Limitations
 
-* Free OpenRouter models may occasionally return **429 rate limits**
-* AI responses may vary between runs
-* Exercise recommendations are **general fitness suggestions**
+- Free OpenRouter models may occasionally return **429 rate limits**
+- AI responses may vary between runs
+- Exercise recommendations are general fitness suggestions
 
 ---
 
 ## Screenshots
 
 ### Build Plan
+
 ![Build Plan 1](./screenshots/build-page_1.png)
 ![Build Plan 2](./screenshots/build-page_2.png)
 
 ### Weekly Plan
+
 ![Weekly Plan 1](./screenshots/plan-page_1.png)
 ![Weekly Plan 2](./screenshots/plan-page_2.png)
 
 ### Mobile View
+
 <img src="./screenshots/mobile-build-planpg_1.png" width="320" />
 <img src="./screenshots/mobile-build-planpg_2.png" width="320" />
 <img src="./screenshots/mobile-build-planpg_3.png" width="320" />
@@ -462,21 +357,26 @@ This improves maintainability and testability.
 <img src="./screenshots/mobile-planpg_2.png" width="320" />
 <img src="./screenshots/mobile-planpg_3.png" width="320" />
 
+---
 
-# License
+## License
 
 This project is provided for **educational and evaluation purposes**.
 
 ---
 
-# Acknowledgements
+## Acknowledgements
 
-* OpenRouter for LLM API access
-* Figma design provided in the assignment
-* React ecosystem for development tools
+- OpenRouter for LLM API access
+- Figma design provided in the assignment
+- React ecosystem for development tools
+
+---
+
+## ChatGPT Conversation Link
+
+[https://chatgpt.com/share/69aa981e-6a94-8006-b743-c4968566dcbe]
 
 ```
 
-# ChatGPT Conversation Link:
-
-https://chatgpt.com/share/69aa981e-6a94-8006-b743-c4968566dcbe
+```
