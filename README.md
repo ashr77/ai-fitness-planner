@@ -16,9 +16,9 @@ This project emphasizes:
 
 ## Demo
 
-_Add your deployed link if available:_
+_Deployed link:_
 
-https://your-deployment-link.vercel.app
+https://ai-fitness-planner-ochre.vercel.app/
 
 ---
 
