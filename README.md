@@ -373,9 +373,9 @@ This project is provided for **educational and evaluation purposes**.
 
 ---
 
-## ChatGPT Conversation Link
+ChatGPT Conversation Link
 
-[https://chatgpt.com/share/69aa981e-6a94-8006-b743-c4968566dcbe]
+https://chatgpt.com/share/69aa981e-6a94-8006-b743-c4968566dcbe
 
 ```
 
