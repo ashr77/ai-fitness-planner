@@ -350,12 +350,12 @@ http://<your-pc-ip>:5173
 
 ### Mobile View
 
-<img src="./screenshots/mobile-build-planpg_1.png" width="320" />
-<img src="./screenshots/mobile-build-planpg_2.png" width="320" />
-<img src="./screenshots/mobile-build-planpg_3.png" width="320" />
-<img src="./screenshots/mobile-planpg_1.png" width="320" />
-<img src="./screenshots/mobile-planpg_2.png" width="320" />
-<img src="./screenshots/mobile-planpg_3.png" width="320" />
+<img src="./screenshots/mobile-build-planpg_1.jpg" width="320" />
+<img src="./screenshots/mobile-build-planpg_2.jpg" width="320" />
+<img src="./screenshots/mobile-build-planpg_3.jpg" width="320" />
+<img src="./screenshots/mobile-planpg_1.jpg" width="320" />
+<img src="./screenshots/mobile-planpg_2.jpg" width="320" />
+<img src="./screenshots/mobile-planpg_3.jpg" width="320" />
 
 ---
 
