@@ -1,0 +1,63 @@
+.seg {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.segItem {
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center;
+  color: rgba(255,255,255,0.82);
+  transition: background .15s ease, border-color .15s ease;
+  min-width: 0;
+}
+
+.segItem:hover { border-color: rgba(255,255,255,0.18); }
+
+.segActive {
+  background: rgba(25,211,255,0.14);
+  border-color: rgba(25,211,255,0.55);
+  box-shadow: 0 10px 30px rgba(25,211,255,0.10);
+}
+
+.segTop {
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 10px;
+  word-break: break-word;
+  white-space: nowrap;
+}
+
+.segSub {
+  margin-top: 6px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.55);
+  word-break: break-word;
+}
+
+/* ===== Mobile: stack segmented options vertically (layered) ===== */
+@media (max-width: 520px) {
+  .seg {
+    grid-template-columns: 1fr !important; /* force 1 column on phones */
+    gap: 12px;
+  }
+
+  .segItem {
+    padding: 16px 12px;
+    border-radius: 16px;
+  }
+
+  .segTop {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  .segSub {
+    font-size: 10px;
+  }
+}

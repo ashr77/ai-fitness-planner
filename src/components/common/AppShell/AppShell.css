@@ -1,0 +1,85 @@
+.shell {
+  min-height: 100vh;
+  padding: 18px 0 40px;
+  overflow-x: hidden;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 54px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 14px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoMark{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  position: relative;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(25,211,255,0.22);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.55),
+    0 0 0 3px rgba(25,211,255,0.06),
+    0 0 30px rgba(25,211,255,0.16);
+
+  overflow: hidden;
+}
+
+.logoMark::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: radial-gradient(circle at 30% 30%, rgba(25,211,255,0.22), transparent 55%);
+  animation: glowMove 2.8s ease-in-out infinite;
+}
+
+@keyframes glowMove{
+  0%   { transform: translate(-4%, -4%) scale(1); opacity: .7; }
+  50%  { transform: translate(4%, 4%) scale(1.08); opacity: .9; }
+  100% { transform: translate(-4%, -4%) scale(1); opacity: .7; }
+}
+
+.logoSvg{
+  position: relative; /* above glow */
+  z-index: 1;
+}
+
+.logoRing{
+  fill: rgba(0,0,0,0.25);
+  stroke: rgba(25,211,255,0.55);
+  stroke-width: 1.4;
+}
+
+.logoLine{
+  stroke: rgba(25,211,255,0.95);
+}
+
+.logoDot{
+  fill: rgba(25,211,255,0.95);
+}
+
+.brandText {
+  font-size: 18px;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.78);
+  text-transform: uppercase;
+}
+
+.content {
+  max-width: var(--container);
+  margin: 26px auto 0;
+  padding: 0 14px;
+  width: 100%;
+}
