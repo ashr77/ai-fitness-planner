@@ -276,7 +276,7 @@ Model:
 
 ```
 
-git clone https://github.com/your-username/ai-fitness-planner.git
+git clone https://github.com/ashr77/ai-fitness-planner.git
 cd ai-fitness-planner
 
 ```
@@ -289,7 +289,12 @@ npm install
 
 ```
 
-### 2, Create .env in project root (same folder as package.json). Use the format in the .env.example
+### 2, Create .env in project root (same folder as package.json).
+
+```
+VITE_OPENROUTER_KEY=YOUR_OPENROUTER_KEY
+VITE_OPENROUTER_MODEL=openai/gpt-oss-20b:free
+```
 
 ### 4. Start development server
 
