@@ -1,8 +1,7 @@
-````md
 # AI Fitness Planner
 
-A responsive web application that generates a personalized **weekly fitness plan using AI**.  
-Users provide basic personal information, fitness goals, and weekly availability, and the app generates a structured workout routine displayed using a clean, card-based UI (based on the provided Figma design).
+A responsive web application that generates a personalized **weekly fitness plan using AI**.
+Users provide basic personal information, fitness goals, and weekly availability, and the app generates a structured workout routine displayed using a clean card-based UI (based on the provided Figma design).
 
 This project emphasizes:
 
@@ -16,7 +15,7 @@ This project emphasizes:
 
 ## Demo
 
-- **Live:** https://ai-fitness-planner-ochre.vercel.app/
+- **Live:** [https://ai-fitness-planner-ochre.vercel.app/](https://ai-fitness-planner-ochre.vercel.app/)
 - **Live (clickable):** [Open the deployed app](https://ai-fitness-planner-ochre.vercel.app/)
 
 ---
@@ -72,7 +71,6 @@ The AI is instructed using a system prompt to always return JSON in the followin
   "recovery_tip": "string"
 }
 ```
-````
 
 This structure allows the UI to render dynamic workout cards reliably.
 
@@ -159,8 +157,8 @@ Configurable via `.env`. Examples:
 
 > Note: Some free models require enabling OpenRouter privacy options:
 >
-> - “Enable free endpoints that may train on inputs”
-> - “Enable free endpoints that may publish prompts”
+> - Enable free endpoints that may train on inputs
+> - Enable free endpoints that may publish prompts
 
 ---
 
@@ -170,9 +168,9 @@ Configurable via `.env`. Examples:
 src/
   api/
     openrouter.js       # OpenRouter fetch + retry + timeout
-    parseJson.js         # Extract JSON safely from model output
-    validatePlan.js      # Schema validation (defensive)
-    systemPrompt.js      # Strict prompt enforcing JSON contract
+    parseJson.js        # Extract JSON safely from model output
+    validatePlan.js     # Schema validation (defensive)
+    systemPrompt.js     # Strict prompt enforcing JSON contract
   pages/
     BuildPlanPage/
       BuildPlanPage.jsx
@@ -253,9 +251,7 @@ VITE_OPENROUTER_MODEL=openai/gpt-oss-20b:free
 npm run dev
 ```
 
-App runs at:
-
-- [http://localhost:5173](http://localhost:5173)
+App runs at: [http://localhost:5173](http://localhost:5173)
 
 ---
 
@@ -278,8 +274,6 @@ npm run preview
 ## Testing Scenarios
 
 ### Input Coverage
-
-Test cases:
 
 - Valid inputs
 - Extreme values
@@ -349,11 +343,11 @@ http://<your-pc-ip>:5173
 
 ### Mobile View
 
-<img src="./screenshots/mobile-build-planpg_1.jpg" width="320" />
-<img src="./screenshots/mobile-build-planpg_2.jpg" width="320" />
-<img src="./screenshots/mobile-build-planpg_3.jpg" width="320" />
-<img src="./screenshots/mobile-planpg_1.jpg" width="320" />
-<img src="./screenshots/mobile-planpg_2.jpg" width="320" />
+<img src="./screenshots/mobile-build-planpg_1.jpg" width="320" />  
+<img src="./screenshots/mobile-build-planpg_2.jpg" width="320" />  
+<img src="./screenshots/mobile-build-planpg_3.jpg" width="320" />  
+<img src="./screenshots/mobile-planpg_1.jpg" width="320" />  
+<img src="./screenshots/mobile-planpg_2.jpg" width="320" />  
 <img src="./screenshots/mobile-planpg_3.jpg" width="320" />
 
 ---
@@ -372,10 +366,8 @@ This project is provided for **educational and evaluation purposes**.
 
 ---
 
-ChatGPT Conversation Link
+## ChatGPT Conversation Link
 
-https://chatgpt.com/share/69aa981e-6a94-8006-b743-c4968566dcbe
+[https://chatgpt.com/share/69aa981e-6a94-8006-b743-c4968566dcbe](https://chatgpt.com/share/69aa981e-6a94-8006-b743-c4968566dcbe)
 
-```
-
-```
+---
