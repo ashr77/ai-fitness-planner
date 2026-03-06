@@ -444,22 +444,23 @@ This improves maintainability and testability.
 
 ---
 
-### Screenshots
+## Screenshots
 
-## Build Plan
-![Build Plan](screenshots/build-page_1.png, build-page_2.png)
+### Build Plan
+![Build Plan 1](./screenshots/build-page_1.png)
+![Build Plan 2](./screenshots/build-page_2.png)
 
-## Weekly Plan
-![Weekly Plan](screenshots/plan-page_1.png, plan-page_1.png)
+### Weekly Plan
+![Weekly Plan 1](./screenshots/plan-page_1.png)
+![Weekly Plan 2](./screenshots/plan-page_2.png)
 
-## Mobile View
-<img src="screenshots/mobile-build-planpg_1.png" width="320" />
-<img src="screenshots/mobile-build-planpg_2.png" width="320" />
-<img src="screenshots/mobile-build-planpg_3.png" width="320" />
-<img src="screenshots/mobile-planpg_1.png" width="320" />
-<img src="screenshots/mobile-planpg_2.png" width="320" />
-<img src="screenshots/mobile-planpg_3.png" width="320" />
-
+### Mobile View
+<img src="./screenshots/mobile-build-planpg_1.png" width="320" />
+<img src="./screenshots/mobile-build-planpg_2.png" width="320" />
+<img src="./screenshots/mobile-build-planpg_3.png" width="320" />
+<img src="./screenshots/mobile-planpg_1.png" width="320" />
+<img src="./screenshots/mobile-planpg_2.png" width="320" />
+<img src="./screenshots/mobile-planpg_3.png" width="320" />
 
 
 # License
